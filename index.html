@@ -1,0 +1,1549 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Исламский тест - 100 вопросов</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background: linear-gradient(135deg, #0d3b4a, #1a5e63);
+        color: #fff;
+        min-height: 100vh;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .container {
+        max-width: 1000px;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        padding: 30px;
+        margin: 20px 0;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 30px;
+        position: relative;
+        z-index: 2;
+      }
+
+      .header h1 {
+        font-size: 2.8rem;
+        margin-bottom: 10px;
+        color: #ffd166;
+        text-shadow: 0 0 10px rgba(255, 209, 102, 0.5);
+      }
+
+      .header p {
+        font-size: 1.2rem;
+        max-width: 700px;
+        margin: 0 auto;
+        color: #a1d2d8;
+      }
+
+      .stats-bar {
+        display: flex;
+        justify-content: space-around;
+        background: rgba(26, 94, 99, 0.7);
+        border-radius: 15px;
+        padding: 15px;
+        margin: 20px 0;
+        flex-wrap: wrap;
+      }
+
+      .stat-item {
+        text-align: center;
+        padding: 10px;
+      }
+
+      .stat-value {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #ffd166;
+      }
+
+      .stat-label {
+        font-size: 0.9rem;
+        color: #c2e4e8;
+      }
+
+      .categories-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+        margin: 30px 0;
+      }
+
+      .category-card {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        padding: 25px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .category-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        background: rgba(26, 94, 99, 0.3);
+      }
+
+      .category-icon {
+        font-size: 2.5rem;
+        color: #ffd166;
+        margin-bottom: 15px;
+      }
+
+      .category-title {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+        color: #fff;
+      }
+
+      .category-desc {
+        font-size: 0.95rem;
+        color: #c2e4e8;
+        margin-bottom: 20px;
+      }
+
+      .category-stats {
+        display: flex;
+        justify-content: space-between;
+        color: #a1d2d8;
+        font-size: 0.9rem;
+      }
+
+      .question-container {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        padding: 25px;
+        margin-bottom: 25px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        border-left: 5px solid #ffd166;
+        position: relative;
+      }
+
+      .question-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+
+      .question-number {
+        font-size: 1.3rem;
+        color: #ffd166;
+        font-weight: bold;
+        background: rgba(26, 94, 99, 0.7);
+        padding: 5px 15px;
+        border-radius: 20px;
+      }
+
+      .question-text {
+        font-size: 1.4rem;
+        color: #fff;
+        margin-bottom: 20px;
+        line-height: 1.5;
+      }
+
+      .options-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .option-btn {
+        background: rgba(255, 255, 255, 0.05);
+        border: 2px solid rgba(161, 210, 216, 0.3);
+        border-radius: 12px;
+        padding: 15px;
+        text-align: left;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        position: relative;
+        padding-left: 60px;
+        color: #fff;
+      }
+
+      .option-btn:hover {
+        background: rgba(26, 94, 99, 0.3);
+        transform: translateX(5px);
+      }
+
+      .option-btn::before {
+        content: "A";
+        position: absolute;
+        left: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 30px;
+        height: 30px;
+        background: linear-gradient(to bottom, #4a9da8, #1a5e63);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+      }
+
+      .option-btn:nth-child(2)::before {
+        content: "B";
+      }
+      .option-btn:nth-child(3)::before {
+        content: "C";
+      }
+      .option-btn:nth-child(4)::before {
+        content: "D";
+      }
+
+      .option-btn.correct {
+        background: rgba(76, 175, 80, 0.2);
+        border-color: #4caf50;
+        color: #e1f7d5;
+      }
+
+      .option-btn.incorrect {
+        background: rgba(244, 67, 54, 0.2);
+        border-color: #f44336;
+        color: #ffebee;
+      }
+
+      .navigation {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+      }
+
+      .nav-btn {
+        background: linear-gradient(to bottom, #4a9da8, #1a5e63);
+        color: white;
+        border: none;
+        border-radius: 50px;
+        padding: 12px 30px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      .nav-btn:disabled {
+        background: linear-gradient(to bottom, #555, #333);
+        cursor: not-allowed;
+        opacity: 0.6;
+      }
+
+      .nav-btn:hover:not(:disabled) {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        background: linear-gradient(to bottom, #5dbac6, #2a7a85);
+      }
+
+      .result-container {
+        text-align: center;
+        padding: 40px 20px;
+        display: none;
+      }
+
+      .result-container.active {
+        display: block;
+        animation: fadeIn 0.8s ease;
+      }
+
+      .score-circle {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        background: conic-gradient(
+          #4caf50 0% var(--score-percent),
+          #f44336 var(--score-percent) 100%
+        );
+        margin: 0 auto 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      .score-value {
+        font-size: 3rem;
+        font-weight: bold;
+        color: #ffd166;
+      }
+
+      .score-text {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+        color: #ffd166;
+      }
+
+      .feedback {
+        font-size: 1.3rem;
+        margin-bottom: 30px;
+        color: #c2e4e8;
+        line-height: 1.6;
+      }
+
+      .restart-btn {
+        background: linear-gradient(to bottom, #ff9a3d, #e86b00);
+        color: white;
+        border: none;
+        border-radius: 50px;
+        padding: 15px 40px;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        margin-top: 20px;
+      }
+
+      .restart-btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      }
+
+      .islamic-pattern {
+        position: absolute;
+        opacity: 0.05;
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      .pattern-1 {
+        top: -50px;
+        right: -50px;
+        width: 300px;
+        height: 300px;
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M50,0 Q75,20 100,50 Q75,80 50,100 Q25,80 0,50 Q25,20 50,0 Z" fill="%23ffd166"/></svg>');
+      }
+
+      .pattern-2 {
+        bottom: -30px;
+        left: -30px;
+        width: 200px;
+        height: 200px;
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M0,50 Q20,75 50,75 Q80,75 100,50 Q80,25 50,25 Q20,25 0,50 Z" fill="%234a9da8"/></svg>');
+      }
+
+      .progress-container {
+        width: 100%;
+        height: 10px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 5px;
+        margin: 20px 0;
+        overflow: hidden;
+      }
+
+      .progress-bar {
+        height: 100%;
+        background: linear-gradient(to right, #4a9da8, #ffd166);
+        border-radius: 5px;
+        transition: width 0.4s ease;
+      }
+
+      .category-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .back-btn {
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        color: #ffd166;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        font-size: 1.2rem;
+        cursor: pointer;
+        margin-right: 15px;
+        transition: all 0.3s ease;
+      }
+
+      .back-btn:hover {
+        background: rgba(255, 209, 102, 0.2);
+        transform: scale(1.1);
+      }
+
+      .category-info {
+        display: flex;
+        flex-direction: column;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 20px 15px;
+        }
+
+        .header h1 {
+          font-size: 2rem;
+        }
+
+        .categories-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .question-text {
+          font-size: 1.2rem;
+        }
+
+        .option-btn {
+          font-size: 1rem;
+          padding: 12px 12px 12px 50px;
+        }
+
+        .option-btn::before {
+          left: 15px;
+        }
+
+        .stats-bar {
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="islamic-pattern pattern-1"></div>
+      <div class="islamic-pattern pattern-2"></div>
+
+      <div class="header">
+        <h1><i class="fas fa-mosque"></i> Исламский тест знаний</h1>
+        <p>100 вопросов по 10 категориям для проверки ваших знаний об исламе</p>
+      </div>
+
+      <div class="stats-bar">
+        <div class="stat-item">
+          <div class="stat-value">100</div>
+          <div class="stat-label">вопросов</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">10</div>
+          <div class="stat-label">категорий</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">7</div>
+          <div class="stat-label">уровней сложности</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">25+</div>
+          <div class="stat-label">источников</div>
+        </div>
+      </div>
+
+      <div class="progress-container">
+        <div class="progress-bar" id="progress-bar" style="width: 0%"></div>
+      </div>
+
+      <div id="categories-container">
+        <h2 style="text-align: center; margin-bottom: 30px; color: #ffd166">
+          Выберите категорию знаний
+        </h2>
+        <div class="categories-grid" id="categories-grid">
+          <!-- Категории будут добавлены через JavaScript -->
+        </div>
+      </div>
+
+      <div id="test-container" class="test-container" style="display: none">
+        <!-- Здесь будут отображаться вопросы -->
+      </div>
+
+      <div id="result-container" class="result-container">
+        <!-- Здесь будут отображаться результаты -->
+      </div>
+    </div>
+
+    <script>
+      // Данные для категорий и вопросов
+      const categories = [
+        {
+          id: "pillars",
+          title: "Пять столпов ислама",
+          icon: "fas fa-kaaba",
+          description:
+            "Основы исламской веры и практики, фундамент мусульманской жизни",
+          color: "#4a9da8",
+          questions: [
+            {
+              question: "Как называется первый столп ислама?",
+              options: ["Намаз", "Закят", "Шахада", "Хадж"],
+              correct: 2,
+            },
+            {
+              question:
+                "Сколько обязательных молитв совершают мусульмане ежедневно?",
+              options: ["3", "5", "7", "2"],
+              correct: 1,
+            },
+            {
+              question: "Что означает закят?",
+              options: [
+                "Пост",
+                "Молитва",
+                "Очистительная милостыня",
+                "Паломничество",
+              ],
+              correct: 2,
+            },
+            {
+              question:
+                "В каком месяце мусульмане соблюдают обязательный пост?",
+              options: ["Мухаррам", "Рамадан", "Шавваль", "Зуль-хиджа"],
+              correct: 1,
+            },
+            {
+              question: "Где находится главная святыня ислама?",
+              options: ["Медина", "Иерусалим", "Мекка", "Дамаск"],
+              correct: 2,
+            },
+            {
+              question: "Что произносит мусульманин при произнесении шахады?",
+              options: [
+                "Аллаху Акбар",
+                "Бисмиллях",
+                "Ля иляха илляллах",
+                "Альхамдулиллях",
+              ],
+              correct: 2,
+            },
+            {
+              question: "Как называется добровольная милостыня в исламе?",
+              options: ["Закят", "Фитр", "Садака", "Хумс"],
+              correct: 2,
+            },
+            {
+              question:
+                "Какая молитва читается во время Рамадана после ночного намаза?",
+              options: ["Витр", "Таравих", "Духа", "Тахаджуд"],
+              correct: 1,
+            },
+            {
+              question:
+                "С какого возраста пост в Рамадан становится обязательным?",
+              options: [
+                "С 7 лет",
+                "С 10 лет",
+                "С полового созревания",
+                "С 18 лет",
+              ],
+              correct: 2,
+            },
+            {
+              question: "Как называется малое паломничество в Мекку?",
+              options: ["Хадж", "Умра", "Зиярат", "Сафар"],
+              correct: 1,
+            },
+          ],
+        },
+        {
+          id: "prophets",
+          title: "Пророки в исламе",
+          icon: "fas fa-book-quran",
+          description:
+            "Истории пророков, упомянутых в Коране, и их уроки для верующих",
+          color: "#ff9a3d",
+          questions: [
+            {
+              question: "Кто был первым пророком в исламе?",
+              options: ["Ибрахим (Авраам)", "Адам", "Нух (Ной)", "Мухаммад ﷺ"],
+              correct: 1,
+            },
+            {
+              question: "Какого пророка Аллах спас от потопа?",
+              options: ["Юнус (Иона)", "Иса (Иисус)", "Нух (Ной)", "Лут (Лот)"],
+              correct: 2,
+            },
+            {
+              question: "Как звали отца пророка Юсуфа (Иосифа)?",
+              options: ["Ибрахим", "Якуб (Иаков)", "Исмаил", "Исхак"],
+              correct: 1,
+            },
+            {
+              question: "Кто из пророков был брошен в огонь?",
+              options: ["Муса (Моисей)", "Ибрахим (Авраам)", "Салих", "Худ"],
+              correct: 1,
+            },
+            {
+              question: "Какой пророк был послан к народу Самуд?",
+              options: ["Худ", "Салих", "Шуайб", "Лут"],
+              correct: 1,
+            },
+            {
+              question: "Кто из пророков прожил дольше всех?",
+              options: ["Нух (Ной)", "Адам", "Идрис", "Сулейман"],
+              correct: 0,
+            },
+            {
+              question: "Какой пророк умел понимать язык животных?",
+              options: [
+                "Сулейман (Соломон)",
+                "Давуд (Давид)",
+                "Юнус (Иона)",
+                "Яхья (Иоанн)",
+              ],
+              correct: 0,
+            },
+            {
+              question: "Кто из пророков был известен своим терпением?",
+              options: [
+                "Айюб (Иов)",
+                "Юсуф (Иосиф)",
+                "Мухаммад ﷺ",
+                "Все перечисленные",
+              ],
+              correct: 3,
+            },
+            {
+              question: "Какой пророк был послан к народу Мадьян?",
+              options: ["Худ", "Салих", "Шуайб", "Лут"],
+              correct: 2,
+            },
+            {
+              question: "Кто из пророков является 'отцом пророков'?",
+              options: ["Адам", "Ибрахим (Авраам)", "Нух (Ной)", "Мухаммад ﷺ"],
+              correct: 1,
+            },
+          ],
+        },
+        {
+          id: "quran",
+          title: "Коран и его науки",
+          icon: "fas fa-book",
+          description:
+            "Структура Корана, история ниспослания, основные суры и аяты",
+          color: "#4caf50",
+          questions: [
+            {
+              question: "Сколько сур в Коране?",
+              options: ["99", "114", "120", "66"],
+              correct: 1,
+            },
+            {
+              question: "Какая сура называется 'Сердцем Корана'?",
+              options: ["Аль-Фатиха", "Аль-Ихляс", "Ясин", "Аль-Бакара"],
+              correct: 2,
+            },
+            {
+              question: "Как называется первая сура Корана?",
+              options: ["Аль-Бакара", "Аль-Фатиха", "Ан-Нас", "Аль-Ихляс"],
+              correct: 1,
+            },
+            {
+              question: "В каком месяце началось ниспослание Корана?",
+              options: ["Рамадан", "Мухаррам", "Раджаб", "Шаабан"],
+              correct: 0,
+            },
+            {
+              question: "Сколько джузов в Коране?",
+              options: ["10", "20", "30", "40"],
+              correct: 2,
+            },
+            {
+              question: "Как называется самый длинный аят в Коране?",
+              options: [
+                "Аят аль-Курси",
+                "Аят о долге",
+                "Аят о свете",
+                "Аят о трости",
+              ],
+              correct: 1,
+            },
+            {
+              question: "В какой суре находится аят аль-Курси?",
+              options: ["Аль-Фатиха", "Аль-Бакара", "Аль-Имран", "Ан-Ниса"],
+              correct: 1,
+            },
+            {
+              question: "Какая сура Корана самая длинная?",
+              options: ["Ан-Ниса", "Аль-Маида", "Аль-Бакара", "Аль-Араф"],
+              correct: 2,
+            },
+            {
+              question: "Как называется наука о чтении Корана?",
+              options: ["Тафсир", "Фикх", "Таджвид", "Акида"],
+              correct: 2,
+            },
+            {
+              question: "Сколько лет длилось ниспослание Корана?",
+              options: ["10 лет", "23 года", "30 лет", "40 лет"],
+              correct: 1,
+            },
+          ],
+        },
+        {
+          id: "prophet-life",
+          title: "Жизнь Пророка Мухаммада ﷺ",
+          icon: "fas fa-user",
+          description:
+            "Биография Пророка, его характер, основные события и уроки из его жизни",
+          color: "#9c27b0",
+          questions: [
+            {
+              question: "В каком году родился Пророк Мухаммад ﷺ?",
+              options: ["570 год", "622 год", "610 год", "632 год"],
+              correct: 0,
+            },
+            {
+              question: "Как звали первого человека, принявшего ислам?",
+              options: ["Абу Бакр", "Хадиджа", "Али", "Зайд ибн Хариса"],
+              correct: 1,
+            },
+            {
+              question: "В каком году произошла Хиджра?",
+              options: ["570 год", "610 год", "622 год", "632 год"],
+              correct: 2,
+            },
+            {
+              question: "Как называется первая мечеть в истории ислама?",
+              options: [
+                "Масджид аль-Харам",
+                "Масджид ан-Набави",
+                "Масджид аль-Куба",
+                "Масджид аль-Акса",
+              ],
+              correct: 2,
+            },
+            {
+              question: "Сколько лет длился мекканский период пророчества?",
+              options: ["10 лет", "13 лет", "15 лет", "23 года"],
+              correct: 1,
+            },
+            {
+              question: "Как называется ночное путешествие Пророка ﷺ?",
+              options: ["Хиджра", "Миградж", "Исра и Миградж", "Бадра"],
+              correct: 2,
+            },
+            {
+              question: "В каком году произошла битва при Бадре?",
+              options: ["610 год", "622 год", "624 год", "630 год"],
+              correct: 2,
+            },
+            {
+              question: "Как звали кормилицу Пророка ﷺ?",
+              options: ["Амина", "Халима", "Фатима", "Сафия"],
+              correct: 1,
+            },
+            {
+              question: "Сколько детей было у Пророка ﷺ?",
+              options: ["3", "5", "7", "9"],
+              correct: 2,
+            },
+            {
+              question: "В каком возрасте Пророк ﷺ получил первое откровение?",
+              options: ["25 лет", "30 лет", "40 лет", "45 лет"],
+              correct: 2,
+            },
+          ],
+        },
+        {
+          id: "ethics",
+          title: "Исламская этика",
+          icon: "fas fa-hand-holding-heart",
+          description:
+            "Моральные принципы ислама, отношения с людьми и обществом",
+          color: "#f44336",
+          questions: [
+            {
+              question:
+                "Что из перечисленного считается большим грехом в исламе?",
+              options: ["Ложь", "Зависть", "Ширк", "Все перечисленные"],
+              correct: 3,
+            },
+            {
+              question: "Как мусульманин должен относиться к родителям?",
+              options: [
+                "С уважением и почтением",
+                "Как к равным",
+                "Строго",
+                "Безразлично",
+              ],
+              correct: 0,
+            },
+            {
+              question: "Что означает 'ихсан' в исламе?",
+              options: [
+                "Вера",
+                "Поклонение",
+                "Совершенство в поклонении",
+                "Знание",
+              ],
+              correct: 2,
+            },
+            {
+              question: "Как называется исламское приветствие?",
+              options: [
+                "Бисмиллях",
+                "Иншааллах",
+                "Ассаляму алейкум",
+                "Машааллах",
+              ],
+              correct: 2,
+            },
+            {
+              question: "Что мусульманин должен сказать перед едой?",
+              options: [
+                "Альхамдулиллях",
+                "Бисмиллях",
+                "Астагфируллах",
+                "Аллаху Акбар",
+              ],
+              correct: 1,
+            },
+            {
+              question: "Как называется благотворительность в исламе?",
+              options: ["Закят", "Садака", "Фитр", "Все перечисленные"],
+              correct: 3,
+            },
+            {
+              question: "Что из перечисленного запрещено в исламе?",
+              options: [
+                "Ростовщичество",
+                "Алкоголь",
+                "Азартные игры",
+                "Все перечисленные",
+              ],
+              correct: 3,
+            },
+            {
+              question: "Как мусульманин должен относиться к соседям?",
+              options: [
+                "Хорошо",
+                "Безразлично",
+                "Только к мусульманам",
+                "Как к врагам",
+              ],
+              correct: 0,
+            },
+            {
+              question: "Что означает 'таваккуль' в исламе?",
+              options: [
+                "Надежда на Аллаха",
+                "Страх перед Аллахом",
+                "Любовь к Аллаху",
+                "Знание об Аллахе",
+              ],
+              correct: 0,
+            },
+            {
+              question: "Как называется прощение в исламе?",
+              options: ["Салям", "Садака", "Афв", "Халяль"],
+              correct: 2,
+            },
+          ],
+        },
+        {
+          id: "history",
+          title: "История ислама",
+          icon: "fas fa-landmark",
+          description:
+            "Развитие исламской цивилизации, халифаты и выдающиеся личности",
+          color: "#2196f3",
+          questions: [
+            {
+              question: "Кто был первым халифом после Пророка ﷺ?",
+              options: [
+                "Умар ибн аль-Хаттаб",
+                "Усман ибн Аффан",
+                "Али ибн Абу Талиб",
+                "Абу Бакр ас-Сиддик",
+              ],
+              correct: 3,
+            },
+            {
+              question:
+                "Как называется период правления четырех праведных халифов?",
+              options: [
+                "Золотой век",
+                "Эпоха праведных халифов",
+                "Эпоха сахабов",
+                "Все перечисленные",
+              ],
+              correct: 1,
+            },
+            {
+              question:
+                "В каком году пал Гранада - последний мусульманский оплот в Испании?",
+              options: ["1099", "1258", "1453", "1492"],
+              correct: 3,
+            },
+            {
+              question: "Кто основал Османскую империю?",
+              options: [
+                "Султан Мехмед II",
+                "Султан Сулейман",
+                "Осман I",
+                "Селим I",
+              ],
+              correct: 2,
+            },
+            {
+              question: "В каком году мусульмане завоевали Константинополь?",
+              options: ["1453", "1492", "1517", "1683"],
+              correct: 0,
+            },
+            {
+              question:
+                "Как звали известного мусульманского ученого, автора 'Канона врачебной науки'?",
+              options: [
+                "Ибн Сина (Авиценна)",
+                "Ибн Рушд (Аверроэс)",
+                "Аль-Фараби",
+                "Аль-Бируни",
+              ],
+              correct: 0,
+            },
+            {
+              question: "Кто был лидером мусульман во время битвы при Кадисии?",
+              options: [
+                "Халид ибн аль-Валид",
+                "Саад ибн Абу Ваккас",
+                "Амр ибн аль-Ас",
+                "Муавия ибн Абу Суфьян",
+              ],
+              correct: 1,
+            },
+            {
+              question: "Как называлась первая исламская династия?",
+              options: ["Аббасиды", "Омейяды", "Фатимиды", "Сельджуки"],
+              correct: 1,
+            },
+            {
+              question: "Кто из халифов создал первую исламскую флот?",
+              options: ["Абу Бакр", "Умар", "Усман", "Али"],
+              correct: 2,
+            },
+            {
+              question: "Какой город стал столицей Аббасидского халифата?",
+              options: ["Мекка", "Медина", "Дамаск", "Багдад"],
+              correct: 3,
+            },
+          ],
+        },
+        {
+          id: "jurisprudence",
+          title: "Исламское право",
+          icon: "fas fa-balance-scale",
+          description:
+            "Основы фикха, мазхабы, законы поклонения и взаимоотношений",
+          color: "#ff9800",
+          questions: [
+            {
+              question: "Как называется исламское право?",
+              options: ["Акида", "Тафсир", "Фикх", "Тасаввуф"],
+              correct: 2,
+            },
+            {
+              question: "Сколько основных суннитских мазхабов существует?",
+              options: ["2", "3", "4", "5"],
+              correct: 2,
+            },
+            {
+              question: "Кто является основателем ханафитского мазхаба?",
+              options: [
+                "Малик ибн Анас",
+                "Абу Ханифа",
+                "Аш-Шафии",
+                "Ахмад ибн Ханбаль",
+              ],
+              correct: 1,
+            },
+            {
+              question: "Что означает 'иджтихад' в исламском праве?",
+              options: [
+                "Следование традиции",
+                "Самостоятельное суждение",
+                "Согласованное мнение",
+                "Аналогия",
+              ],
+              correct: 1,
+            },
+            {
+              question: "Как называется разрешенное в исламе?",
+              options: ["Харам", "Халяль", "Макрух", "Мубах"],
+              correct: 1,
+            },
+            {
+              question: "Что означает 'фард'?",
+              options: [
+                "Обязательное",
+                "Желательное",
+                "Нейтральное",
+                "Нежелательное",
+              ],
+              correct: 0,
+            },
+            {
+              question: "Как называется временный брак в исламе?",
+              options: ["Никах", "Мута", "Талак", "Идда"],
+              correct: 1,
+            },
+            {
+              question:
+                "Какой минимальный возраст для вступления в брак в исламе?",
+              options: [
+                "12 лет",
+                "15 лет",
+                "18 лет",
+                "Нет фиксированного возраста",
+              ],
+              correct: 3,
+            },
+            {
+              question: "Что такое 'зияра'?",
+              options: [
+                "Посещение могил",
+                "Добровольное пожертвование",
+                "Дополнительная молитва",
+                "Пост в понедельник и четверг",
+              ],
+              correct: 0,
+            },
+            {
+              question: "Как называется развод в исламе?",
+              options: ["Хула", "Талак", "Фасих", "Иля"],
+              correct: 1,
+            },
+          ],
+        },
+        {
+          id: "aqeeda",
+          title: "Исламское вероучение",
+          icon: "fas fa-star-and-crescent",
+          description:
+            "Основы веры, единобожие, вера в предопределение и Судный день",
+          color: "#e91e63",
+          questions: [
+            {
+              question: "Сколько столпов имана (веры) в исламе?",
+              options: ["5", "6", "7", "8"],
+              correct: 1,
+            },
+            {
+              question: "Что означает 'таухид'?",
+              options: ["Единобожие", "Поклонение", "Вера", "Знание"],
+              correct: 0,
+            },
+            {
+              question: "Во что должен верить мусульманин?",
+              options: [
+                "В Аллаха",
+                "В ангелов",
+                "В Судный день",
+                "Все перечисленное",
+              ],
+              correct: 3,
+            },
+            {
+              question: "Как называется вера в предопределение?",
+              options: ["Кадар", "Кияма", "Шахада", "Иман"],
+              correct: 0,
+            },
+            {
+              question: "Кто записывает наши дела?",
+              options: ["Малик", "Ракиб и Атид", "Джибриль", "Исрафиль"],
+              correct: 1,
+            },
+            {
+              question: "Что такое 'ширк'?",
+              options: [
+                "Неверие",
+                "Лицемерие",
+                "Придание сотоварищей Аллаху",
+                "Большой грех",
+              ],
+              correct: 2,
+            },
+            {
+              question: "Как называется Судный день в исламе?",
+              options: ["Дунья", "Ахира", "Кияма", "Барзах"],
+              correct: 2,
+            },
+            {
+              question: "Что такое 'куфр'?",
+              options: ["Неверие", "Лицемерие", "Грех", "Заблуждение"],
+              correct: 0,
+            },
+            {
+              question:
+                "Как называется промежуточный мир между смертью и воскрешением?",
+              options: ["Дунья", "Ахира", "Кияма", "Барзах"],
+              correct: 3,
+            },
+            {
+              question: "Кто будет заступаться за верующих в Судный день?",
+              options: ["Ангелы", "Пророки", "Шахиды", "Все перечисленные"],
+              correct: 1,
+            },
+          ],
+        },
+        {
+          id: "women-family",
+          title: "Женщина и семья в исламе",
+          icon: "fas fa-people-roof",
+          description:
+            "Роль женщины, семейные ценности, права и обязанности в исламе",
+          color: "#00bcd4",
+          questions: [
+            {
+              question: "Какие права имеет женщина в исламе?",
+              options: [
+                "Право на образование",
+                "Право на собственность",
+                "Право на выбор мужа",
+                "Все перечисленные",
+              ],
+              correct: 3,
+            },
+            {
+              question: "Как называется свадебный подарок мужчины женщине?",
+              options: ["Махр", "Закят", "Садака", "Нафака"],
+              correct: 0,
+            },
+            {
+              question: "Кто был первой женой Пророка ﷺ?",
+              options: ["Аиша", "Сауда", "Хадиджа", "Зайнаб"],
+              correct: 2,
+            },
+            {
+              question:
+                "Как называется период после развода, в течение которого женщина не может выйти замуж?",
+              options: ["Талак", "Идда", "Хула", "Фасих"],
+              correct: 1,
+            },
+            {
+              question: "Как звали дочь Пророка ﷺ, мать его внуков?",
+              options: ["Хадиджа", "Аиша", "Фатима", "Зайнаб"],
+              correct: 2,
+            },
+            {
+              question: "Что является основой семьи в исламе?",
+              options: [
+                "Любовь",
+                "Милосердие",
+                "Взаимопонимание",
+                "Все перечисленное",
+              ],
+              correct: 3,
+            },
+            {
+              question: "Как называется развод по инициативе женщины?",
+              options: ["Талак", "Хула", "Фасих", "Мубараат"],
+              correct: 1,
+            },
+            {
+              question:
+                "Кто несет финансовую ответственность за семью в исламе?",
+              options: ["Муж", "Жена", "Поровну", "Старший член семьи"],
+              correct: 0,
+            },
+            {
+              question: "Как называется обязательное содержание жены мужем?",
+              options: ["Махр", "Нафака", "Закят", "Садака"],
+              correct: 1,
+            },
+            {
+              question: "Кто была первой женщиной-мученицей в исламе?",
+              options: ["Хадиджа", "Сумайя", "Фатима", "Аиша"],
+              correct: 1,
+            },
+          ],
+        },
+        {
+          id: "modern",
+          title: "Современные вопросы",
+          icon: "fas fa-laptop",
+          description:
+            "Актуальные проблемы мусульман в современном мире, финансы, технологии",
+          color: "#8bc34a",
+          questions: [
+            {
+              question: "Как мусульманину относиться к светскому государству?",
+              options: [
+                "Принимать его законы",
+                "Бороться против него",
+                "Жить согласно исламу в рамках закона",
+                "Игнорировать его",
+              ],
+              correct: 2,
+            },
+            {
+              question: "Что такое исламский банкинг?",
+              options: [
+                "Банкинг без процентов",
+                "Банкинг только для мусульман",
+                "Банкинг в исламских странах",
+                "Банкинг по шариату",
+              ],
+              correct: 3,
+            },
+            {
+              question: "Как называется запрет на ростовщичество в исламе?",
+              options: ["Риба", "Гарар", "Майсир", "Харам"],
+              correct: 0,
+            },
+            {
+              question:
+                "Как мусульманину следует использовать социальные сети?",
+              options: [
+                "Распространять добро",
+                "Избегать их",
+                "Использовать с осторожностью",
+                "Все перечисленные",
+              ],
+              correct: 3,
+            },
+            {
+              question: "Что такое 'халяль-туризм'?",
+              options: [
+                "Туризм в исламские страны",
+                "Туризм с соблюдением исламских норм",
+                "Религиозный туризм",
+                "Туризм только для мусульман",
+              ],
+              correct: 1,
+            },
+            {
+              question:
+                "Как мусульманину относиться к экологическим проблемам?",
+              options: [
+                "Это не важно для религии",
+                "Беречь природу как доверенное Аллахом",
+                "Игнорировать их",
+                "Заниматься только духовными вопросами",
+              ],
+              correct: 1,
+            },
+            {
+              question: "Что такое 'фитна' в современном контексте?",
+              options: ["Испытание", "Смута", "Искушение", "Все перечисленные"],
+              correct: 3,
+            },
+            {
+              question:
+                "Как мусульманину следует одеваться в немусульманской стране?",
+              options: [
+                "Строго по шариату",
+                "Согласно местным законам и нормам",
+                "Как все остальные",
+                "Только в традиционную одежду",
+              ],
+              correct: 1,
+            },
+            {
+              question: "Что такое 'иджтихад' в современном исламе?",
+              options: [
+                "Слепое следование традиции",
+                "Самостоятельное толкование в новых условиях",
+                "Отказ от религиозных норм",
+                "Создание новых религиозных правил",
+              ],
+              correct: 1,
+            },
+            {
+              question: "Как называется концепция исламской экономики?",
+              options: [
+                "Капитализм",
+                "Социализм",
+                "Исламская экономическая система",
+                "Коммунизм",
+              ],
+              correct: 2,
+            },
+          ],
+        },
+      ];
+
+      // Переменные состояния приложения
+      let currentCategory = null;
+      let currentTest = null;
+      let currentQuestionIndex = 0;
+      let userAnswers = [];
+      let score = 0;
+      let testStarted = false;
+
+      // Элементы DOM
+      const categoriesContainer = document.getElementById(
+        "categories-container"
+      );
+      const categoriesGrid = document.getElementById("categories-grid");
+      const testContainer = document.getElementById("test-container");
+      const resultContainer = document.getElementById("result-container");
+      const progressBar = document.getElementById("progress-bar");
+
+      // Инициализация приложения
+      document.addEventListener("DOMContentLoaded", () => {
+        renderCategories();
+      });
+
+      // Функция отображения категорий
+      function renderCategories() {
+        categoriesGrid.innerHTML = "";
+        categories.forEach((category) => {
+          const card = document.createElement("div");
+          card.className = "category-card";
+          card.innerHTML = `
+                    <div class="category-icon" style="color: ${category.color}">
+                        <i class="${category.icon}"></i>
+                    </div>
+                    <h3 class="category-title">${category.title}</h3>
+                    <p class="category-desc">${category.description}</p>
+                    <div class="category-stats">
+                        <span>${category.questions.length} вопросов</span>
+                        <span>Средний уровень</span>
+                    </div>
+                `;
+          card.addEventListener("click", () => startTest(category));
+          categoriesGrid.appendChild(card);
+        });
+      }
+
+      // Функция начала теста
+      function startTest(category) {
+        currentCategory = category;
+        currentTest = category.questions;
+        currentQuestionIndex = 0;
+        userAnswers = [];
+        score = 0;
+        testStarted = true;
+
+        // Обновляем прогресс-бар
+        updateProgressBar();
+
+        // Показываем первый вопрос
+        showQuestion();
+
+        // Показываем контейнер теста
+        categoriesContainer.style.display = "none";
+        testContainer.style.display = "block";
+        resultContainer.classList.remove("active");
+      }
+
+      // Функция отображения текущего вопроса
+      function showQuestion() {
+        if (!currentTest || currentQuestionIndex >= currentTest.length) {
+          showResults();
+          return;
+        }
+
+        const question = currentTest[currentQuestionIndex];
+
+        // Создаем HTML для вопроса
+        const questionHTML = `
+                <div class="category-header">
+                    <button class="back-btn" onclick="backToCategories()">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <div class="category-info">
+                        <h2>${currentCategory.title}</h2>
+                        <p>Вопрос ${currentQuestionIndex + 1} из ${
+          currentTest.length
+        }</p>
+                    </div>
+                </div>
+                <div class="question-container">
+                    <div class="question-text">${question.question}</div>
+                    <div class="options-container">
+                        ${question.options
+                          .map(
+                            (option, index) => `
+                            <button class="option-btn" data-index="${index}">${option}</button>
+                        `
+                          )
+                          .join("")}
+                    </div>
+                </div>
+                <div class="navigation">
+                    <button class="nav-btn" id="prev-btn" ${
+                      currentQuestionIndex === 0 ? "disabled" : ""
+                    }>
+                        <i class="fas fa-arrow-left"></i> Назад
+                    </button>
+                    <button class="nav-btn" id="next-btn" disabled>
+                        Далее <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            `;
+
+        // Вставляем HTML в контейнер
+        testContainer.innerHTML = questionHTML;
+
+        // Добавляем обработчики событий
+        document.querySelectorAll(".option-btn").forEach((btn) => {
+          btn.addEventListener("click", () => selectOption(btn));
+        });
+
+        document
+          .getElementById("prev-btn")
+          .addEventListener("click", prevQuestion);
+        document
+          .getElementById("next-btn")
+          .addEventListener("click", nextQuestion);
+      }
+
+      // Функция выбора варианта ответа
+      function selectOption(btn) {
+        // Получаем индекс выбранного ответа
+        const selectedIndex = parseInt(btn.dataset.index);
+
+        // Сохраняем ответ пользователя
+        userAnswers[currentQuestionIndex] = selectedIndex;
+
+        // Получаем правильный ответ
+        const correctIndex = currentTest[currentQuestionIndex].correct;
+
+        // Помечаем все кнопки как невыбранные
+        document.querySelectorAll(".option-btn").forEach((optionBtn) => {
+          optionBtn.disabled = true;
+        });
+
+        // Помечаем правильный ответ
+        document
+          .querySelectorAll(".option-btn")
+          [correctIndex].classList.add("correct");
+
+        // Если ответ неверный, помечаем выбранный как неверный
+        if (selectedIndex !== correctIndex) {
+          btn.classList.add("incorrect");
+        } else {
+          // Увеличиваем счетчик правильных ответов
+          score++;
+        }
+
+        // Активируем кнопку "Далее"
+        document.getElementById("next-btn").disabled = false;
+      }
+
+      // Функция перехода к предыдущему вопросу
+      function prevQuestion() {
+        if (currentQuestionIndex > 0) {
+          currentQuestionIndex--;
+          showQuestion();
+          updateProgressBar();
+        }
+      }
+
+      // Функция перехода к следующему вопросу
+      function nextQuestion() {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < currentTest.length) {
+          showQuestion();
+          updateProgressBar();
+        } else {
+          showResults();
+        }
+      }
+
+      // Функция обновления прогресс-бара
+      function updateProgressBar() {
+        if (!testStarted) return;
+
+        const progress = (currentQuestionIndex / currentTest.length) * 100;
+        progressBar.style.width = `${progress}%`;
+      }
+
+      // Функция отображения результатов
+      function showResults() {
+        // Рассчитываем процент правильных ответов
+        const percent = Math.round((score / currentTest.length) * 100);
+
+        // Определяем сообщение в зависимости от результата
+        let message;
+        if (percent >= 90) {
+          message =
+            "Превосходно! Вы продемонстрировали глубокие знания в этой области!";
+        } else if (percent >= 70) {
+          message = "Очень хорошо! Вы отлично разбираетесь в этой теме!";
+        } else if (percent >= 50) {
+          message = "Хороший результат! Продолжайте изучать эту тему!";
+        } else {
+          message =
+            "Не расстраивайтесь! Это отличный повод узнать больше об исламе!";
+        }
+
+        // Создаем HTML для результатов
+        const resultHTML = `
+                <h2 class="score-text">Результаты теста</h2>
+                <div class="score-circle" style="--score-percent: ${percent}%">
+                    <div class="score-value">${percent}%</div>
+                </div>
+                <div class="feedback">
+                    <p>${message}</p>
+                    <p>Вы ответили правильно на ${score} из ${currentTest.length} вопросов по теме "${currentCategory.title}".</p>
+                </div>
+                <div style="margin-top: 30px;">
+                    <button class="restart-btn" onclick="restartTest()">
+                        <i class="fas fa-redo"></i> Пройти тест снова
+                    </button>
+                    <button class="restart-btn" onclick="backToCategories()" style="background: linear-gradient(to bottom, #6a6a6a, #333); margin-left: 10px;">
+                        <i class="fas fa-th-list"></i> Выбрать другую категорию
+                    </button>
+                </div>
+            `;
+
+        // Вставляем HTML в контейнер
+        resultContainer.innerHTML = resultHTML;
+
+        // Показываем контейнер результатов
+        testContainer.style.display = "none";
+        resultContainer.classList.add("active");
+      }
+
+      // Функция возврата к категориям
+      function backToCategories() {
+        categoriesContainer.style.display = "block";
+        testContainer.style.display = "none";
+        resultContainer.classList.remove("active");
+        testStarted = false;
+        progressBar.style.width = "0%";
+      }
+
+      // Функция перезапуска теста
+      function restartTest() {
+        startTest(currentCategory);
+      }
+
+      // Сделаем функции глобальными для работы из HTML
+      window.backToCategories = backToCategories;
+      window.restartTest = restartTest;
+    </script>
+  </body>
+</html>
